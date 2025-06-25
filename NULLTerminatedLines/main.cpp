@@ -196,27 +196,48 @@ unsigned long long hex2dec(const char str[])
 	return decimal;
 }
 
+//bool isIPaddress(const char str[])
+//{
+//	int n = strlen(str);
+//	if (n < 7 || n > 15)return false;
+//	char bytes[4][4] = {};
+//	for (int i = 0, j = 0, k=0; str[i]; i++)
+//	{
+//		if (str[i] == '.')
+//		{
+//			j++;
+//			if (j > 3)return false;
+//			k = 0;
+//			continue;
+//		}
+//		bytes[j][k++] = str[i];
+//	}
+//	for (int i = 0; i < 4; i++)
+//	{
+//		if (toIntNumber(bytes[i]) > 255)return false;
+//		cout << bytes[i] << "\t";
+//	}
+//	cout << endl;
+//	return true;
+//}
+
 bool isIPaddress(const char str[])
 {
 	int n = strlen(str);
 	if (n < 7 || n > 15)return false;
-	char bytes[4][4] = {};
-	for (int i = 0, j = 0, k=0; str[i]; i++)
+	char byte[4]= {};
+	for (int i = 0, j = 0,points=0; str[i]; i++)
 	{
 		if (str[i] == '.')
 		{
-			j++;
-			if (j > 3)return false;
-			k = 0;
+			j=0;
+			points++;
+			if (points > 3)return false;
+			if (toIntNumber(byte) > 255)return false;
 			continue;
 		}
-		bytes[j][k++] = str[i];
+		byte[j++] = str[i];
+		if (j > 3)return false;
 	}
-	for (int i = 0; i < 4; i++)
-	{
-		if (toIntNumber(bytes[i]) > 255)return false;
-		cout << bytes[i] << "\t";
-	}
-	cout << endl;
 	return true;
 }
